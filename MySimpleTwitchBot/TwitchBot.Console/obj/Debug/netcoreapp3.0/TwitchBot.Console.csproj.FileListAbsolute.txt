@@ -1,0 +1,14 @@
+C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Console\bin\Debug\netcoreapp3.0\TwitchBot.Console.exe
+C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Console\bin\Debug\netcoreapp3.0\TwitchBot.Console.deps.json
+C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Console\bin\Debug\netcoreapp3.0\TwitchBot.Console.runtimeconfig.json
+C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Console\bin\Debug\netcoreapp3.0\TwitchBot.Console.runtimeconfig.dev.json
+C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Console\bin\Debug\netcoreapp3.0\TwitchBot.Console.dll
+C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Console\bin\Debug\netcoreapp3.0\TwitchBot.Console.pdb
+C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Console\bin\Debug\netcoreapp3.0\TwitchBot.Services.dll
+C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Console\bin\Debug\netcoreapp3.0\TwitchBot.Services.pdb
+C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Console\obj\Debug\netcoreapp3.0\TwitchBot.Console.csprojAssemblyReference.cache
+C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Console\obj\Debug\netcoreapp3.0\TwitchBot.Console.AssemblyInfoInputs.cache
+C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Console\obj\Debug\netcoreapp3.0\TwitchBot.Console.AssemblyInfo.cs
+C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Console\obj\Debug\netcoreapp3.0\TwitchBot.Console.csproj.CopyComplete
+C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Console\obj\Debug\netcoreapp3.0\TwitchBot.Console.dll
+C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Console\obj\Debug\netcoreapp3.0\TwitchBot.Console.pdb

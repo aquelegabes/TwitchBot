@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\TwitchBot.Domain\TwitchBot.Domain.csproj" />
+    <ProjectReference Include="..\TwitchBot.Services\TwitchBot.Services.csproj" />
   </ItemGroup>
 
 </Project>

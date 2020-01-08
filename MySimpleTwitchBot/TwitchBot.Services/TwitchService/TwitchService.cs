@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Threading;
@@ -28,29 +30,21 @@ namespace TwitchBot.Services.TwitchService
         /// Twitch service port.
         /// </summary>
         public const int TWITCH_PORT = 6667;
+
+        private string Username => Credentials.Username;
+        private string Password => Credentials.Password;
+
         /// <summary>
-        /// 
+        /// Collection to all threads connected to channels.
         /// </summary>
-        public bool Connected { get { return tcpClient?.Connected ?? false; } }
-        public Thread ServiceThread { get; private set; }
-
-        private readonly TcpClient tcpClient;
-        private readonly StreamReader reader;
-        private readonly StreamWriter writer;
-        internal string Username { get; private set; }
-        internal string Channel { get; private set; }
+        public ICollection<ServiceThread> Threads { get; private set; }
 
         /// <summary>
-        /// Public constructor that initializes a new TCP Client connecting to Twitch service.
+        /// Constructor to initialize threads.
         /// </summary>
         public TwitchService()
         {
-            this.tcpClient = new TcpClient(TWITCH_HOST, TWITCH_PORT);
-            this.reader = new StreamReader(tcpClient.GetStream());
-            this.writer = new StreamWriter(tcpClient.GetStream())
-            {
-                AutoFlush = true
-            };
+            Threads = new List<ServiceThread>();
         }
 
         /// <summary>
@@ -62,58 +56,53 @@ namespace TwitchBot.Services.TwitchService
         }
 
         /// <summary>
-        /// Handler that uses the received message. Must use  custom implementation.
+        /// Handlers received messages. Must use  custom implementation.
         /// </summary>
         public event EventHandler<MessageReceivedEventArgs> MessageReceived;
 
         /// <summary>
         /// Connect to twitch service with provided username and password.
         /// </summary>
-        /// <param name="username">Bot username.</param>
-        /// <param name="password">Bot provided password token.</param>
         /// <param name="channel">Channel for the bot to write messages and/or moderate.</param>
         /// <remarks>Passwords meaning your provided token.</remarks>
         /// <returns>True whether could connect otherwise false.</returns>
-        public async Task ConnectAsync(string username, string password, string channel)
+        public async Task ConnectAsync(string channel)
         {
-            this.Username = username;
-            this.Channel = channel;
             try
             {
-                // thread that reads incoming messages
-                ServiceThread = new Thread(async () =>
+                ServiceThread st = new ServiceThread(TWITCH_HOST, TWITCH_PORT, channel);
+                st.Thread = new Thread(async () =>
                 {
-                    if (!tcpClient.Connected)
-                        await tcpClient.ConnectAsync(TWITCH_HOST, TWITCH_PORT);
-
                     while (true)
                     {
                         Thread.Sleep(100);
 
-                        if (tcpClient.Available > 0 || reader.Peek() >= 0)
+                        if (st.TCPClient.Available > 0 || st.Reader.Peek() >= 0)
                         {
-                            var message = await reader.ReadLineAsync();
+                            var message = await st.Reader.ReadLineAsync();
                             OnMessageReceived(new MessageReceivedEventArgs(message, channel));
                         }
                     }
                 });
-                ServiceThread.Start();
+                st.Start();
 
                 // logs in
-                await writer.WriteLineAndFlushAsync(
-                        "PASS " + password + Environment.NewLine +
-                        "NICK " + username + Environment.NewLine +
-                        "USER " + username + " 8 * :" + username
+                await st.Writer.WriteLineAndFlushAsync(
+                        "PASS " + Password + Environment.NewLine +
+                        "NICK " + Username + Environment.NewLine +
+                        "USER " + Username + " 8 * :" + Username
                     );
 
                 // shows how many users are logged on chat, shows online mods
-                await writer.WriteLineAndFlushAsync(
+                await st.Writer.WriteLineAndFlushAsync(
                     "CAP REQ :twitch.tv/membership"
                 );
                 // join chatroom
-                await writer.WriteLineAndFlushAsync(
+                await st.Writer.WriteLineAndFlushAsync(
                     $"JOIN #{channel.ToLower()}"
                 );
+
+                Threads.Add(st);
             }
             catch (Exception)
             { 
@@ -124,39 +113,39 @@ namespace TwitchBot.Services.TwitchService
         /// <summary>
         /// Reconnect to twitch service with provided username/password/channel.
         /// </summary>
-        /// <param name="username">Bot username.</param>
-        /// <param name="password">Bot provided password token.</param>
         /// <param name="channel">Channel for the bot to write messages and/or moderate.</param>
         /// <remarks>Passwords meaning your provided token.</remarks>
-        public async Task ReconnectAsync(string username, string password, string channel)
+        public async Task ReconnectAsync(string channel)
         {
-            Disconnect();
-            this.Username = username;
-            this.Channel = channel;
-            await ConnectAsync(username, password, channel);
+            Disconnect(channel);
+            await ConnectAsync(channel);
         }
 
         /// <summary>
-        /// Disconnect from twitch service.
+        /// Disconnects bot from a twitch channel.
         /// </summary>
-        public void Disconnect()
+        /// <param name="channel">Channel name.</param>
+        public void Disconnect(string channel)
         {
-            ServiceThread.Abort();
-            this.Username = string.Empty;
-            this.Channel = string.Empty;
-            tcpClient.Close();
+            var st = Threads.First(t => t.Channel.Equals(channel, StringComparison.OrdinalIgnoreCase));
+            st.Abort();
+            Threads.Remove(st);
         }
 
         /// <summary>
         /// Write a message to twitch chat.
         /// </summary>
         /// <param name="message">Message to send.</param>
-        public async Task SendMessageAsync(string message)
+        public async Task SendMessageAsync(string message, string channel)
         {
-            var msgFormat = 
-                $":{Username.ToLower()}!{Username.ToLower()}@{Username.ToLower()}.tmi.twitch.tv PRIVMSG #{Channel.ToLower()} :{message}";
+            var serviceThread = Threads.First(st => st.Channel.Equals(channel, StringComparison.OrdinalIgnoreCase));
+            if (!string.IsNullOrWhiteSpace(message))
+            {
+                var msgFormat =
+                    $":{Username.ToLower()}!{Username.ToLower()}@{Username.ToLower()}.tmi.twitch.tv PRIVMSG #{channel.ToLower()} :{message}";
 
-            await this.writer.WriteLineAndFlushAsync(msgFormat);
+                await serviceThread.Writer.WriteLineAndFlushAsync(msgFormat);
+            }
         }
     }
 }

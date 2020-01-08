@@ -1,11 +1,46 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.0": {}
+    ".NETCoreApp,Version=v3.0": {
+      "TwitchBot.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.0",
+        "compile": {
+          "bin/placeholder/TwitchBot.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TwitchBot.Domain.dll": {}
+        }
+      },
+      "TwitchBot.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.0",
+        "compile": {
+          "bin/placeholder/TwitchBot.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TwitchBot.Services.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "TwitchBot.Domain/1.0.0": {
+      "type": "project",
+      "path": "../TwitchBot.Domain/TwitchBot.Domain.csproj",
+      "msbuildProject": "../TwitchBot.Domain/TwitchBot.Domain.csproj"
+    },
+    "TwitchBot.Services/1.0.0": {
+      "type": "project",
+      "path": "../TwitchBot.Services/TwitchBot.Services.csproj",
+      "msbuildProject": "../TwitchBot.Services/TwitchBot.Services.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.0": []
+    ".NETCoreApp,Version=v3.0": [
+      "TwitchBot.Domain >= 1.0.0",
+      "TwitchBot.Services >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\gabri\\.nuget\\packages\\": {},
@@ -39,7 +74,14 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\gabri\\Documents\\Visual Studio 2019\\Repos\\TwitchBot\\MySimpleTwitchBot\\TwitchBot.Domain\\TwitchBot.Domain.csproj": {
+              "projectPath": "C:\\Users\\gabri\\Documents\\Visual Studio 2019\\Repos\\TwitchBot\\MySimpleTwitchBot\\TwitchBot.Domain\\TwitchBot.Domain.csproj"
+            },
+            "C:\\Users\\gabri\\Documents\\Visual Studio 2019\\Repos\\TwitchBot\\MySimpleTwitchBot\\TwitchBot.Services\\TwitchBot.Services.csproj": {
+              "projectPath": "C:\\Users\\gabri\\Documents\\Visual Studio 2019\\Repos\\TwitchBot\\MySimpleTwitchBot\\TwitchBot.Services\\TwitchBot.Services.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

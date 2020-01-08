@@ -16,31 +16,29 @@ namespace TwitchBot.Services.TwitchService
         /// <summary>
         /// Connect to twitch service with provided username and password.
         /// </summary>
-        /// <param name="username">Bot username.</param>
-        /// <param name="password">Bot provided password token.</param>
         /// <param name="channel">Channel for the bot to write messages and/or moderate.</param>
         /// <remarks>Passwords meaning your provided token.</remarks>
         /// <returns>True whether could connect otherwise false.</returns>
-        Task ConnectAsync(string username, string password, string channel);
+        Task ConnectAsync(string channel);
 
         /// <summary>
         /// Reconnect to twitch service with provided username/password/channel.
         /// </summary>
-        /// <param name="username">Bot username.</param>
-        /// <param name="password">Bot provided password token.</param>
         /// <param name="channel">Channel for the bot to write messages and/or moderate.</param>
         /// <remarks>Passwords meaning your provided token.</remarks>
-        Task ReconnectAsync(string username, string password, string channel);
+        Task ReconnectAsync(string channel);
 
         /// <summary>
-        /// Disconnect from twitch service.
+        /// Disconnects bot from a twitch channel.
         /// </summary>
-        void Disconnect();
+        /// <param name="channel">Channel name.</param>
+        void Disconnect(string channel);
 
         /// <summary>
         /// Write a message to twitch chat.
         /// </summary>
         /// <param name="message">Message to send.</param>
-        Task SendMessageAsync(string message);
+        /// <param name="channel">Channel to send message.</param>
+        Task SendMessageAsync(string message, string channel);
     }
 }

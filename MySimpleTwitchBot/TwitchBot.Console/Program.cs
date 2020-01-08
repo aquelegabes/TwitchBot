@@ -1,20 +1,27 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Threading.Tasks;
+using TwitchBot.Application.Services;
+using TwitchBot.Data.Context;
+using TwitchBot.Data.Repositories;
+using TwitchBot.Domain.Repositories;
 using TwitchBot.Services.TwitchService;
 
 namespace TwitchBot.ConsoleApp
 {
-    class Program
+    partial class Program
     {
-        public static bool connected = false;
         static async Task Main(string[] args)
         {
-            TwitchService service =
-                new TwitchService();
+            ServiceProvider = ConfigureCollection();
+            ConfigureProviders();
+            ConfigureMessageHandlers();
 
-            service.MessageReceived += Service_MessageReceived;
+            await AddDefaultCommands();
 
-            await service.ConnectAsync(Credentials.Username, Credentials.Password, Credentials.Channel);
+            string channel = "aazacs";
+            await twitchService.ConnectAsync(channel);
 
             Console.WriteLine("[*] Awaiting connection...");
             while (true)
@@ -22,7 +29,7 @@ namespace TwitchBot.ConsoleApp
                 if (connected)
                 {
                     var message = Console.ReadLine();
-                    await service.SendMessageAsync(message);
+                    await twitchService.SendMessageAsync(message, channel);
                 }
             }
         }

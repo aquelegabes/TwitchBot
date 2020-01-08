@@ -1,8 +1,0 @@
-C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Domain\bin\Debug\netcoreapp3.0\TwitchBot.Domain.deps.json
-C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Domain\bin\Debug\netcoreapp3.0\TwitchBot.Domain.dll
-C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Domain\bin\Debug\netcoreapp3.0\TwitchBot.Domain.pdb
-C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Domain\obj\Debug\netcoreapp3.0\TwitchBot.Domain.AssemblyInfoInputs.cache
-C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Domain\obj\Debug\netcoreapp3.0\TwitchBot.Domain.AssemblyInfo.cs
-C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Domain\obj\Debug\netcoreapp3.0\TwitchBot.Domain.dll
-C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Domain\obj\Debug\netcoreapp3.0\TwitchBot.Domain.pdb
-C:\Users\gabri\Documents\Visual Studio 2019\Repos\TwitchBot\MySimpleTwitchBot\TwitchBot.Domain\obj\Debug\netcoreapp3.0\TwitchBot.Domain.csprojAssemblyReference.cache

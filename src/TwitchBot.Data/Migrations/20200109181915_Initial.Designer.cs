@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TwitchBot.Data.Context;
@@ -9,9 +10,10 @@ using TwitchBot.Data.Context;
 namespace TwitchBot.Data.Migrations
 {
     [DbContext(typeof(TwitchBotContext))]
-    partial class TwitchBotContextModelSnapshot : ModelSnapshot
+    [Migration("20200109181915_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,9 +57,6 @@ namespace TwitchBot.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("integer");
-
                     b.Property<bool>("IsSpecialCommand")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
@@ -65,11 +64,6 @@ namespace TwitchBot.Data.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
-
-                    b.Property<int>("Operators")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValue(256);
 
                     b.Property<bool>("PublicResponse")
                         .ValueGeneratedOnAdd()
@@ -85,8 +79,6 @@ namespace TwitchBot.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatedById");
-
                     b.ToTable("Commands");
                 });
 
@@ -94,7 +86,7 @@ namespace TwitchBot.Data.Migrations
                 {
                     b.HasOne("TwitchBot.Domain.Entities.Channel", "CreatedBy")
                         .WithMany("Commands")
-                        .HasForeignKey("CreatedById")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

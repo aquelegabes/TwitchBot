@@ -10,8 +10,9 @@ namespace TwitchBot.Domain.Abstract
     /// </summary>
     public abstract class AEntity : IEntity
     {
-        public Guid Id { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        [Key]
+        public virtual int Id { get; set; }
+        public virtual DateTime CreatedAt { get; set; }
+        public virtual DateTime UpdatedAt { get; set; }
     }
 }

@@ -8,7 +8,8 @@ using TwitchBot.Application.Services;
 using TwitchBot.Data.Context;
 using TwitchBot.Data.Repositories;
 using TwitchBot.Domain.Repositories;
-using TwitchBot.Services.TwitchService;
+using TwitchBot.Services;
+using TwitchBot.Services.Interfaces;
 
 namespace TwitchBot.ConsoleApp
 {
@@ -17,19 +18,17 @@ namespace TwitchBot.ConsoleApp
         public static string LOCAL_CONN = "Server=127.0.0.1;Port=5432;Database=twitchbot;User Id=postgres;Password=root;";
         public static bool connected = false;
         private static ITwitchService twitchService;
-
+        private static IMessageHandler messageHandler;
         private static IChannelService channelService;
         private static ICommandService commandService;
-
-        private static IMessageHandler messageHandler;
         private static ServiceProvider ServiceProvider { get; set; }
 
         public static ServiceProvider ConfigureCollection()
         {
             var collection = new ServiceCollection();
 
-            collection.AddDbContext<TwitchBotContext>(options =>
-                options.UseNpgsql(LOCAL_CONN));
+            //collection.AddDbContext<TwitchBotContext>(options =>
+                //options.UseNpgsql(LOCAL_CONN));
 
             collection.AddScoped<IRepositoryChannel, RepositoryChannel>();
             collection.AddScoped<IRepositoryCommand, RepositoryCommand>();
@@ -38,7 +37,7 @@ namespace TwitchBot.ConsoleApp
             collection.AddScoped<ICommandService, CommandService>();
 
             collection.AddScoped<ITwitchService, TwitchService>();
-            collection.AddScoped<IMessageHandler, MessageHandler>();
+            collection.AddScoped<IMessageHandler, IMessageHandler>();
 
             collection.BuildServiceProvider();
             return collection.BuildServiceProvider();
@@ -46,9 +45,7 @@ namespace TwitchBot.ConsoleApp
 
         public static void ConfigureMessageHandlers()
         {
-            messageHandler = new MessageHandler(twitchService);
-            twitchService.MessageReceived += messageHandler.AtBotMessageReceivedHandler;
-            twitchService.MessageReceived += messageHandler.PongMessageReceivedHandler;
+            twitchService.MessageReceived += messageHandler.Handler;
             twitchService.MessageReceived += Service_MessageReceived;
         }
 
@@ -57,6 +54,7 @@ namespace TwitchBot.ConsoleApp
             twitchService = ServiceProvider.GetService<ITwitchService>();
             commandService = ServiceProvider.GetService<ICommandService>();
             channelService = ServiceProvider.GetService<IChannelService>();
+            messageHandler = ServiceProvider.GetService<IMessageHandler>();
         }
     }
 }

@@ -1,0 +1,33 @@
+﻿@page "/twitchbot/{channel}"
+@inherits TwitchServiceBase
+
+<h1>Twitch Service</h1>
+
+<div>
+    Is connected? @(IsConnected ? "👍" : "👎")
+    <br />
+    <button @onclick="Connect">Connect</button>
+    <br /><br />
+    <button @onclick="async () => await AddChannel(IsConnected)">Add channel</button>
+    <br />
+    <button @onclick="async () => await AddTestCommands(IsConnected)">Add test commands</button>
+    <br />
+    <button @onclick="Disconnect">Disconnect</button>
+    <br /><br />
+    <br />
+    Chat replay: Max Messages 
+    <select @bind="MaxMessages" class="form-control">
+        @foreach (var maxMsgs in MaxChatMessages)
+        {
+            <option value="@maxMsgs">@maxMsgs</option>
+        }
+    </select>
+    <ul>
+        @foreach (var message in Messages)
+        {
+            <li>
+                @message["user"] says @message["message"]
+            </li>
+        }
+    </ul>
+</div>

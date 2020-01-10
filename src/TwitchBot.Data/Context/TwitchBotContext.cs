@@ -31,11 +31,6 @@ namespace TwitchBot.Data.Context
         /// </param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder
-                    .UseNpgsql("Server=127.0.0.1;Port=5432;Database=twitchbot;User Id=postgres;Password=root;");
-            }
             optionsBuilder.UseLazyLoadingProxies();
         }
 
@@ -46,8 +41,8 @@ namespace TwitchBot.Data.Context
         /// <remarks>If a model is explicitly set on the options for this context then this method will not be run.</remarks>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder
-                .HasPostgresExtension("uuid-ossp");
+            // modelBuilder
+                // .HasPostgresExtension("uuid-ossp");
             modelBuilder.ApplyConfiguration(new CommandConfiguration());
             modelBuilder.ApplyConfiguration(new ChannelConfiguration());
         }

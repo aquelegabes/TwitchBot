@@ -11,15 +11,14 @@ namespace TwitchBot.Data.Configuration
     {
         public override void Configure(EntityTypeBuilder<Channel> builder)
         {
-            base.Configure(builder);
             builder.Property(p => p.Name).IsRequired();
 
-            builder.HasMany(p => p.Commands)
+            builder.HasMany(m => m.Commands)
                 .WithOne(o => o.CreatedBy)
-                .HasForeignKey(fk => fk.Id)
+                .HasForeignKey(fk => fk.CreatedById)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasKey(key => key.Id);
+            base.Configure(builder);
         }
     }
 }

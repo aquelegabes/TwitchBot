@@ -1,4 +1,4 @@
-﻿namespace TwitchBot.Services.TwitchService
+﻿namespace TwitchBot.Services
 {
     public class Credentials
     {

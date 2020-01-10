@@ -6,7 +6,8 @@ using TwitchBot.Application.Services;
 using TwitchBot.Data.Context;
 using TwitchBot.Data.Repositories;
 using TwitchBot.Domain.Repositories;
-using TwitchBot.Services.TwitchService;
+using TwitchBot.Services;
+using TwitchBot.Services.Models;
 
 namespace TwitchBot.ConsoleApp
 {
@@ -18,11 +19,11 @@ namespace TwitchBot.ConsoleApp
             ConfigureProviders();
             ConfigureMessageHandlers();
 
-            await AddDefaultCommands();
+            // await AddDefaultCommands();
 
-            string channel = "aazacs";
+            string channel = "luigivaraschin237";
             await twitchService.ConnectAsync(channel);
-
+            
             Console.WriteLine("[*] Awaiting connection...");
             while (true)
             {
@@ -38,7 +39,7 @@ namespace TwitchBot.ConsoleApp
         {
             if (e.IsUserMessage)
                 Console.WriteLine($"[*] {e.UsrMessage.User}: {e.UsrMessage.Message}");
-            else
+            //else
                 Console.WriteLine($"[*] {e.ToString()}");
 
             if (e.FromSystemFormat.Contains("366", StringComparison.OrdinalIgnoreCase))

@@ -14,7 +14,7 @@ namespace TwitchBot.Application.Services
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     public abstract class BaseService<T> : IBaseService<T>
-        where T : class, IEntity
+        where T : class
     {
         /// <summary>
         /// Protected access to repository.
@@ -59,19 +59,31 @@ namespace TwitchBot.Application.Services
             } catch { throw; }
         }
 
-        public virtual async Task<T> GetById(string id)
+        public virtual async Task<T> GetById(int id)
         {
             try
             {
-                var guid = Guid.Parse(id);
-                return await this.repository.GetById(guid);
+                //var guid = Guid.Parse(id);
+                return await this.repository.GetById(id);
             }
             catch { throw; }
         }
 
-        public Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> where)
+        public virtual async Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> where)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await this.repository.Where(where);
+            } catch { throw; }
+        }
+
+        public virtual async Task<T> GetFirst(Expression<Func<T,bool>> where)
+        {
+            try
+            {
+                return await this.repository.FirstOrDefault(where);
+            }
+            catch { throw; }
         }
 
         public Task Remove(string Id)

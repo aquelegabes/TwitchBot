@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TwitchBot.Domain.Entities;
-using TwitchBot.Services.TwitchService;
+using TwitchBot.Services;
 
 namespace TwitchBot.ConsoleApp
 {
@@ -24,21 +24,22 @@ namespace TwitchBot.ConsoleApp
                 await channelService.Add(chann);
             }
             else
-                chann = await channelService.GetById("a2be366e-ec10-4b5b-b443-2ec8b4b92cdc");
+                chann = await channelService.GetById(1);
 
             if (await commandService.Count() < 4)
             {
-                //var comm1 = new Command
-                //{
-                //    CreatedAt = DateTime.UtcNow,
-                //    PublicResponse = true,
-                //    TypeCommand = "++s",
-                //    Action = "/subscribers",
-                //    CreatedBy = chann,
-                //    Name = "Subscribers mode on",
-                //};
+                var comm1 = new Command
+                {
+                    CreatedAt = DateTime.UtcNow,
+                    PublicResponse = true,
+                    TypeCommand = "++s",
+                    Action = "/subscribers",
+                    CreatedBy = chann,
+                    Name = "Subscribers mode on",
+                    IsSpecialCommand = true,
+                };
 
-                //await commandService.Add(comm1);
+                await commandService.Add(comm1);
 
                 var comm2 = new Command
                 {
@@ -48,6 +49,7 @@ namespace TwitchBot.ConsoleApp
                     Action = "/subscribersoff",
                     CreatedBy = chann,
                     Name = "Subscribers mode off",
+                    IsSpecialCommand = true,
                 };
 
                 await commandService.Add(comm2);
@@ -60,6 +62,7 @@ namespace TwitchBot.ConsoleApp
                     Action = "/emoteonly",
                     CreatedBy = chann,
                     Name = "Emote only",
+                    IsSpecialCommand = true,
                 };
 
                 await commandService.Add(comm3);
@@ -72,7 +75,7 @@ namespace TwitchBot.ConsoleApp
                     Action = "/emoteonlyoff",
                     CreatedBy = chann,
                     Name = "Emote only off",
-
+                    IsSpecialCommand = true,
                 };
 
                 await commandService.Add(comm4);

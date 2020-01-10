@@ -16,7 +16,7 @@ namespace TwitchBot.Data.Repositories
     /// </summary>
     /// <typeparam name="T">An existing model/class</typeparam>
     public abstract class RepositoryBase<T> : IRepositoryBase<T>
-        where T : class, IEntity
+        where T : class
     {
         /// <summary>
         /// Protected access to the context
@@ -165,10 +165,10 @@ namespace TwitchBot.Data.Repositories
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="Exception" />
         /// <returns>Returns a <see cref="T"/></returns>
-        public virtual async Task<T> GetById(Guid id)
+        public virtual async Task<T> GetById(int id)
         {
-            if (id == null)
-                throw new ArgumentException("Id cannot null", nameof(id));
+            if (id <= 0)
+                throw new ArgumentException("Id cannot be null", nameof(id));
 
             try
             {
@@ -189,7 +189,7 @@ namespace TwitchBot.Data.Repositories
         /// <exception cref="DbException"></exception>
         /// <exception cref="Exception"></exception>
         /// <returns><see cref="bool"/>Returns the model</returns>
-        public virtual async Task<T> Add(T model)
+        public virtual async Task Add(T model)
         {
             if (model == null)
                 throw new ArgumentNullException(nameof(model), "Cannot add a null reference");
@@ -198,7 +198,6 @@ namespace TwitchBot.Data.Repositories
             {
                 await _context.Set<T>().AddAsync(model);
                 await _context.SaveChangesAsync();
-                return model;
             }
             catch (DbException ex)
             {
@@ -222,7 +221,7 @@ namespace TwitchBot.Data.Repositories
         /// <exception cref="DbException"></exception>
         /// <exception cref="Exception"></exception>
         /// <returns>Returns the updated <see cref="T"/> entity.</returns>
-        public virtual async Task<T> Update(T model)
+        public virtual async Task Update(T model)
         {
             if (model == null)
                 throw new ArgumentNullException(
@@ -233,7 +232,6 @@ namespace TwitchBot.Data.Repositories
             {
                 _context.Set<T>().Update(model);
                 await _context.SaveChangesAsync();
-                return model;
             }
             catch (EntryPointNotFoundException ex)
             {

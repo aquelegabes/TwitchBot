@@ -11,7 +11,7 @@ namespace TwitchBot.Domain.Repositories
     /// </summary>
     /// <typeparam name="T">An existing model/class <see cref="IEntity"/>.</typeparam>
     public interface IRepositoryBase<T> : IDisposable
-        where T : class, IEntity
+        where T : class
     {
         /// <summary>   
         /// Search for a entity based on an id.
@@ -19,7 +19,7 @@ namespace TwitchBot.Domain.Repositories
         /// <param name="id"><see cref="Guid"></see></param>
         /// <exception cref="ArgumentException"></exception>
         /// <returns>Returns a <see cref="T"/></returns>
-        Task<T> GetById(Guid id);
+        Task<T> GetById(int id);
 
         /// <summary>
         /// Get all entities
@@ -72,7 +72,7 @@ namespace TwitchBot.Domain.Repositories
         /// <exception cref="DbException"></exception>
         /// <exception cref="Exception"></exception>
         /// <returns>Returns the added <see cref="T"/> model.</returns>
-        Task<T> Add(T model);
+        Task Add(T model);
 
         /// <summary>
         /// Update the entity.
@@ -83,8 +83,7 @@ namespace TwitchBot.Domain.Repositories
         /// <exception cref="DbUpdateException"></exception>
         /// <exception cref="DbException"></exception>
         /// <exception cref="Exception"></exception>
-        /// <returns>Returns the updated <see cref="T"/> entity.</returns>
-        Task<T> Update(T model);
+        Task Update(T model);
 
         /// <summary>
         /// Remove the entity

@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
-namespace TwitchBot.Services.TwitchService
+namespace TwitchBot.Services.Models
 {
     /// <summary>
     /// Class responsible for handling channel threads.
@@ -14,9 +14,7 @@ namespace TwitchBot.Services.TwitchService
     {
         public Thread Thread { get; set; }
         public string Channel { get; private set; }
-        internal TcpClient TCPClient { get; private set; }
-        internal StreamReader Reader { get; private set; }
-        internal StreamWriter Writer { get; private set; }
+        internal CancellationTokenSource CancellationToken { get; set; }
 
         /// <summary>
         /// Initializes a new instance connecting to Twitch IRC.
@@ -24,14 +22,10 @@ namespace TwitchBot.Services.TwitchService
         /// <param name="host">Twitch host.</param>
         /// <param name="port">Twitch port.</param>
         /// <param name="channel">Channel name to connect.</param>
-        public ServiceThread(string host, int port, string channel)
+        public ServiceThread(string channel)
         {
-            this.TCPClient = new TcpClient(host, port);
-            this.Reader = new StreamReader(TCPClient.GetStream());
-            this.Writer = new StreamWriter(TCPClient.GetStream())
-            {
-                AutoFlush = true
-            };
+            CancellationToken = new CancellationTokenSource();
+
             this.Channel = channel;
         }
 
@@ -41,17 +35,17 @@ namespace TwitchBot.Services.TwitchService
         /// <exception cref="ThreadStateException"></exception>
         /// <exception cref="OutOfMemoryException"></exception>
         public void Start() => this.Thread.Start();
+
         /// <summary>
-        /// Raises a <see cref="ThreadAbortException"/> in the thread on which it is invoked, to begin the process of terminating the thread. Calling this method usually terminates the thread.
+        /// Raises a <see cref="ThreadAbortException"/> in the thread on which it is invoked, to begin the process of terminating the thread.
+        /// Calling this method usually terminates the thread.
         /// </summary>
         /// <exception cref="ThreadStateException"></exception>
         /// <exception cref="PlatformNotSupportedException"></exception>
         /// <exception cref="System.Security.SecurityException"></exception>
         public void Abort()
         {
-            this.Thread.Abort();
-            this.TCPClient.Close();
-            this.Dispose();
+            CancellationToken.Cancel();
         }
 
         #region IDisposable Support

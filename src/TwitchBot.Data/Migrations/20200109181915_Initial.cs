@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace TwitchBot.Data.Migrations
 {
@@ -7,14 +8,12 @@ namespace TwitchBot.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterDatabase()
-                .Annotation("Npgsql:PostgresExtension:uuid-ossp", ",,");
-
             migrationBuilder.CreateTable(
                 name: "Channels",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "uuid_generate_v4()"),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: false)
@@ -28,13 +27,15 @@ namespace TwitchBot.Data.Migrations
                 name: "Commands",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "uuid_generate_v4()"),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     TypeCommand = table.Column<string>(nullable: false),
                     Action = table.Column<string>(nullable: false),
-                    PublicResponse = table.Column<bool>(nullable: false, defaultValue: false)
+                    PublicResponse = table.Column<bool>(nullable: false, defaultValue: false),
+                    IsSpecialCommand = table.Column<bool>(nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {

@@ -5,23 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200107181339_Initial.cs" />
-    <Compile Remove="Migrations\20200107181339_Initial.Designer.cs" />
-    <Compile Remove="Migrations\20200107182846_Initial.cs" />
-    <Compile Remove="Migrations\20200107182846_Initial.Designer.cs" />
-    <Compile Remove="Migrations\20200107183047_Initial.cs" />
-    <Compile Remove="Migrations\20200107183047_Initial.Designer.cs" />
-    <Compile Remove="Migrations\20200107183235_Initial.cs" />
-    <Compile Remove="Migrations\20200107183235_Initial.Designer.cs" />
-    <Compile Remove="Migrations\20200107192023_Initial.cs" />
-    <Compile Remove="Migrations\20200107192023_Initial.Designer.cs" />
-    <Compile Remove="Migrations\20200107193801_IdFix.cs" />
-    <Compile Remove="Migrations\20200107193801_IdFix.Designer.cs" />
-    <Compile Remove="Migrations\20200107200206_ChangeIdToGuid.cs" />
-    <Compile Remove="Migrations\20200107200206_ChangeIdToGuid.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0">
       <PrivateAssets>all</PrivateAssets>

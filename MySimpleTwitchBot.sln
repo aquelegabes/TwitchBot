@@ -9,21 +9,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{601B0C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{E46FEB85-5C6F-4514-BA1C-5E4C736BA155}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.Application", "TwitchBot.Application\TwitchBot.Application.csproj", "{8376660E-DC9F-49D2-B120-7145AE34A7D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.Application", ".\src\TwitchBot.Application\TwitchBot.Application.csproj", "{8376660E-DC9F-49D2-B120-7145AE34A7D5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.Domain", "TwitchBot.Domain\TwitchBot.Domain.csproj", "{EA9C6998-AEAC-4764-8AF8-2CCB3CBB5D01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.Domain", ".\src\TwitchBot.Domain\TwitchBot.Domain.csproj", "{EA9C6998-AEAC-4764-8AF8-2CCB3CBB5D01}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{94076F01-6DC8-4D2E-B354-56A7F3574CFA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.Services", "TwitchBot.Services\TwitchBot.Services.csproj", "{6111067C-7BEA-4E9F-AE5D-A4572D886CBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.Services", ".\src\TwitchBot.Services\TwitchBot.Services.csproj", "{6111067C-7BEA-4E9F-AE5D-A4572D886CBA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.ConsoleApp", "TwitchBot.Console\TwitchBot.ConsoleApp.csproj", "{7C591B9E-8203-4B45-82DD-93A04E9D5A3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.ConsoleApp", ".\src\TwitchBot.Console\TwitchBot.ConsoleApp.csproj", "{7C591B9E-8203-4B45-82DD-93A04E9D5A3F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{2DBD77D7-8391-4B31-B329-529AD13E99B8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.Data", "TwitchBot.Data\TwitchBot.Data.csproj", "{64E36C85-73A0-4579-BE40-2B493ABE8CFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.Data", ".\src\TwitchBot.Data\TwitchBot.Data.csproj", "{64E36C85-73A0-4579-BE40-2B493ABE8CFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitchBot.WebApp", "..\web\TwitchBot.WebApp.csproj", "{BF7A03F4-C2DD-4CC4-A5F9-5118FF7CD354}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.WebApp", ".\web\TwitchBot.WebApp.csproj", "{BF7A03F4-C2DD-4CC4-A5F9-5118FF7CD354}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

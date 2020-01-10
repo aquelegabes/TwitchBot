@@ -11,7 +11,7 @@ namespace TwitchBot.Application.Interfaces
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     public interface IBaseService<T>
-        where T : class, IEntity
+        where T : class
     {
         /// <summary>
         /// Search for a entity based on an id.
@@ -20,7 +20,7 @@ namespace TwitchBot.Application.Interfaces
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="Exception" />
         /// <returns>Returns a <see cref="T"/></returns>
-        Task<T> GetById(string id);
+        Task<T> GetById(int id);
 
         /// <summary>
         /// Returns the number of elements in a sequence.
@@ -37,6 +37,14 @@ namespace TwitchBot.Application.Interfaces
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Null expression.</exception>
         Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> @where);
+
+        /// <summary>
+        /// Retrieve first entity that matches the expression.
+        /// </summary>
+        /// <param name="@where">A valid expression.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">Null expression.</exception>
+        Task<T> GetFirst(Expression<Func<T, bool>> where);
 
         /// <summary>
         /// Add an entity to the database.

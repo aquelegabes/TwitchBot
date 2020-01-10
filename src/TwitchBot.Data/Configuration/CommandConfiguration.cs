@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TwitchBot.Domain.Entities;
+using TwitchBot.Services.Models;
+using static TwitchBot.Services.Models.TwitchBadges;
 
 namespace TwitchBot.Data.Configuration
 {
@@ -11,18 +13,19 @@ namespace TwitchBot.Data.Configuration
     {
         public override void Configure(EntityTypeBuilder<Command> builder)
         {
-            base.Configure(builder);
             builder.Property(p => p.Action).IsRequired();
             builder.Property(p => p.TypeCommand).IsRequired();
             builder.Property(p => p.Name);
             builder.Property(p => p.PublicResponse).HasDefaultValue(false);
+            builder.Property(p => p.IsSpecialCommand).HasDefaultValue(false);
+            builder.Property(p => p.Operators).HasDefaultValue(Badges.General);
 
             builder.HasOne(p => p.CreatedBy)
                 .WithMany(m => m.Commands)
                 .IsRequired()
                 .HasForeignKey(fk => fk.Id);
 
-            builder.HasKey(key => key.Id);
+            base.Configure(builder);
         }
     }
 }

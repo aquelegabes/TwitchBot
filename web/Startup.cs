@@ -11,12 +11,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TwitchBot.Application.Interfaces;
+using TwitchBot.Application.MessageHandler;
 using TwitchBot.Application.Services;
 using TwitchBot.Data.Context;
 using TwitchBot.Data.Repositories;
-using TwitchBot.Domain.Entities;
 using TwitchBot.Domain.Repositories;
-using TwitchBot.Services.TwitchService;
+using TwitchBot.Services;
+using TwitchBot.Services.Interfaces;
 using TwitchBot.WebApp.Data;
 
 namespace TwitchBot.WebApp
@@ -49,8 +50,9 @@ namespace TwitchBot.WebApp
             // Services
             services.AddScoped(typeof(IChannelService), typeof(ChannelService));
             services.AddScoped(typeof(ICommandService), typeof(CommandService));
-            services.AddSingleton(typeof(IMessageHandler), typeof(MessageHandler));
-            services.AddSingleton(typeof(ITwitchService), typeof(TwitchService));
+
+            services.AddScoped(typeof(ITwitchService), typeof(TwitchService));
+            services.AddScoped(typeof(IMessageHandler), typeof(MessageHandler));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

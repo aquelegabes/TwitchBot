@@ -10,24 +10,23 @@ using TwitchBot.Data.Context;
 namespace TwitchBot.Data.Migrations
 {
     [DbContext(typeof(TwitchBotContext))]
-    [Migration("20200107200516_Initial")]
-    partial class Initial
+    [Migration("20200109184856_WhoUsesCommand")]
+    partial class WhoUsesCommand
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:PostgresExtension:uuid-ossp", ",,")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 .HasAnnotation("ProductVersion", "3.1.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("TwitchBot.Domain.Entities.Channel", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasDefaultValueSql("uuid_generate_v4()");
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn);
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
@@ -46,9 +45,10 @@ namespace TwitchBot.Data.Migrations
 
             modelBuilder.Entity("TwitchBot.Domain.Entities.Command", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
-                        .HasDefaultValueSql("uuid_generate_v4()");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn);
 
                     b.Property<string>("Action")
                         .IsRequired()
@@ -57,8 +57,21 @@ namespace TwitchBot.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsSpecialCommand")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
+
+                    b.Property<long>("Operators")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasDefaultValue(0L);
 
                     b.Property<bool>("PublicResponse")
                         .ValueGeneratedOnAdd()
@@ -74,6 +87,8 @@ namespace TwitchBot.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CreatedById");
+
                     b.ToTable("Commands");
                 });
 
@@ -81,7 +96,7 @@ namespace TwitchBot.Data.Migrations
                 {
                     b.HasOne("TwitchBot.Domain.Entities.Channel", "CreatedBy")
                         .WithMany("Commands")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

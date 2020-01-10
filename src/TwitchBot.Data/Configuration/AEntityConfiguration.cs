@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 using TwitchBot.Domain.Abstract;
 
 namespace TwitchBot.Data.Configuration
@@ -13,8 +14,9 @@ namespace TwitchBot.Data.Configuration
     {
         public virtual void Configure(EntityTypeBuilder<T> builder)
         {
+            builder.HasKey(p => p.Id);
             builder.Property(p => p.Id)
-                .HasDefaultValueSql("uuid_generate_v4()");
+                .UseIdentityAlwaysColumn();
 
             builder.Property(p => p.CreatedAt).IsRequired();
             builder.Property(p => p.UpdatedAt).IsRequired();

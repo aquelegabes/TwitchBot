@@ -20,6 +20,7 @@ namespace TwitchBot.Data.Context
 
         public DbSet<Command> Commands { get; set; }
         public DbSet<Channel> Channels { get; set; }
+        public DbSet<TwitchBadge> TwitchBadges { get; set; }
 
         /// <summary>
         /// Configure the database (and other options) to be used for this context.
@@ -41,10 +42,12 @@ namespace TwitchBot.Data.Context
         /// <remarks>If a model is explicitly set on the options for this context then this method will not be run.</remarks>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // modelBuilder
-                // .HasPostgresExtension("uuid-ossp");
+            // used to generate new guid ids
+            modelBuilder.HasPostgresExtension("uuid-ossp");
             modelBuilder.ApplyConfiguration(new CommandConfiguration());
             modelBuilder.ApplyConfiguration(new ChannelConfiguration());
+            modelBuilder.ApplyConfiguration(new TwitchBadgeConfiguration());
+            modelBuilder.ApplyConfiguration(new CommandChannelConfiguration());
         }
     }
 }

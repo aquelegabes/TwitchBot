@@ -9,7 +9,7 @@ namespace TwitchBot.Services.Models
     {
         public string DisplayName { get; set; }
         public string UserColor { get; set; } = string.Empty;
-        public Badges Badges { get; set; } = Badges.General;
+        public LocalBadges Badges { get; set; } = LocalBadges.General;
 
         /// <summary>
         /// Automatic conversion of <see cref="UserModel"/> into a <see cref="string"/>.

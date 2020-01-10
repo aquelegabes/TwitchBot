@@ -7,7 +7,7 @@ namespace TwitchBot.Domain.Interfaces
     /// </summary>
     public interface IEntity
     {
-        int Id { get; set; }
+        Guid Id { get; set; }
         DateTime CreatedAt { get; set; }
         DateTime UpdatedAt { get; set; }
     }

@@ -76,7 +76,7 @@ namespace TwitchBot.Services.Models
                 foreach (var b in dictBadges)
                 {
                     var chave = b.Key.Replace('-', '_');
-                    if (b.Value && Enum.TryParse(chave.Substring(0, b.Key.IndexOf('/')), true, out Badges badge))
+                    if (b.Value && Enum.TryParse(chave.Substring(0, b.Key.IndexOf('/')), true, out LocalBadges badge))
                         UsrMessage.User.Badges |= badge;
                 }
                 Debug.WriteLine(UsrMessage.User.Badges);

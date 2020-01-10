@@ -103,7 +103,7 @@ namespace TwitchBot.WebApp.Pages
                         CreatedBy = chann,
                         Name = "Subscribers mode on",
                         IsSpecialCommand = true,
-                        Operators = TwitchBadges.Badges.Moderator | TwitchBadges.Badges.Broadcaster,
+                        Operators = TwitchBadges.LocalBadges.Moderator | TwitchBadges.LocalBadges.Broadcaster,
                     };
 
                     await CommandService.Add(comm1);
@@ -117,7 +117,7 @@ namespace TwitchBot.WebApp.Pages
                         CreatedBy = chann,
                         Name = "Subscribers mode off",
                         IsSpecialCommand = true,
-                        Operators = TwitchBadges.Badges.Moderator | TwitchBadges.Badges.Broadcaster,
+                        Operators = TwitchBadges.LocalBadges.Moderator | TwitchBadges.LocalBadges.Broadcaster,
                     };
 
                     await CommandService.Add(comm2);
@@ -131,7 +131,7 @@ namespace TwitchBot.WebApp.Pages
                         CreatedBy = chann,
                         Name = "Emote only",
                         IsSpecialCommand = true,
-                        Operators = TwitchBadges.Badges.Moderator | TwitchBadges.Badges.Broadcaster,
+                        Operators = TwitchBadges.LocalBadges.Moderator | TwitchBadges.LocalBadges.Broadcaster,
                     };
 
                     await CommandService.Add(comm3);
@@ -145,7 +145,7 @@ namespace TwitchBot.WebApp.Pages
                         CreatedBy = chann,
                         Name = "Emote only off",
                         IsSpecialCommand = true,
-                        Operators = TwitchBadges.Badges.Moderator | TwitchBadges.Badges.Broadcaster,
+                        Operators = TwitchBadges.LocalBadges.Moderator | TwitchBadges.LocalBadges.Broadcaster,
                     };
 
                     await CommandService.Add(comm4);

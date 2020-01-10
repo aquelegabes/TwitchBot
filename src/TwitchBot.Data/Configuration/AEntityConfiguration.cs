@@ -16,10 +16,10 @@ namespace TwitchBot.Data.Configuration
         {
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Id)
-                .UseIdentityAlwaysColumn();
+                .HasDefaultValueSql("uuid_generate_v4()");
 
             builder.Property(p => p.CreatedAt).IsRequired();
-            builder.Property(p => p.UpdatedAt).IsRequired();
+            builder.Property(p => p.UpdatedAt);
         }
     }
 }

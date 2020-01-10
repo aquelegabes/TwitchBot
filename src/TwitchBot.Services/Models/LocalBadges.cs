@@ -9,7 +9,7 @@ namespace TwitchBot.Services.Models
     public static class TwitchBadges
     {
         [Flags]
-        public enum Badges
+        public enum LocalBadges
         {
             None        = 0,
             /// <summary>

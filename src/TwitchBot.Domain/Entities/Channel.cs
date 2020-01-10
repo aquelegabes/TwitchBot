@@ -12,6 +12,7 @@ namespace TwitchBot.Domain.Entities
     public class Channel : AEntity, IEntity
     {
         public string Name { get; set; }
-        public virtual IEnumerable<Command> Commands { get; set; }
+        public virtual IEnumerable<CommandChannel> CommandsInChannel { get; set; }
+        public virtual IEnumerable<Command> CreatedCommands { get; set; }
     }
 }

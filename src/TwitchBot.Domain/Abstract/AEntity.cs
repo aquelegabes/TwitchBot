@@ -11,7 +11,7 @@ namespace TwitchBot.Domain.Abstract
     public abstract class AEntity : IEntity
     {
         [Key]
-        public virtual int Id { get; set; }
+        public virtual Guid Id { get; set; }
         public virtual DateTime CreatedAt { get; set; }
         public virtual DateTime UpdatedAt { get; set; }
     }

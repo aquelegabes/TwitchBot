@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using TwitchBot.Domain.Abstract;
 using TwitchBot.Domain.Interfaces;
@@ -18,13 +19,15 @@ namespace TwitchBot.Domain.Entities
         public const string ACTIVATE_IDENTIFIER = "++";
         [NotMapped]
         public const string DEACTIVATE_IDENTIFIER = "--";
+
         public string Name { get; set; }
         public string TypeCommand { get; set; }
         public string Action { get; set; }
         public bool PublicResponse { get; set; }
         public bool IsSpecialCommand { get; set; }
+        public Guid CreatedById { get; set; }
+        public LocalBadges Operators { get; set; }
         public virtual Channel CreatedBy { get; set; }
-        public int CreatedById { get; set; }
-        public Badges Operators { get; set; }
+        public virtual IEnumerable<CommandChannel> CommandsInChannel { get; set; }
     }
 }

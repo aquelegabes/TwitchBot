@@ -18,10 +18,10 @@ namespace TwitchBot.Data.Configuration
             builder.Property(p => p.Name);
             builder.Property(p => p.PublicResponse).HasDefaultValue(false);
             builder.Property(p => p.IsSpecialCommand).HasDefaultValue(false);
-            builder.Property(p => p.Operators).HasDefaultValue(Badges.General);
+            builder.Property(p => p.Operators).HasDefaultValue(LocalBadges.General);
 
             builder.HasOne(p => p.CreatedBy)
-                .WithMany(m => m.Commands)
+                .WithMany(m => m.CreatedCommands)
                 .IsRequired()
                 .HasForeignKey(fk => fk.Id);
 

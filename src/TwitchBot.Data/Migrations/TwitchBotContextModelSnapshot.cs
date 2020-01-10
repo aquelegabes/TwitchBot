@@ -15,16 +15,17 @@ namespace TwitchBot.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("Npgsql:PostgresExtension:uuid-ossp", ",,")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 .HasAnnotation("ProductVersion", "3.1.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("TwitchBot.Domain.Entities.Channel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn);
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("uuid_generate_v4()");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
@@ -38,15 +39,18 @@ namespace TwitchBot.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Channels");
                 });
 
             modelBuilder.Entity("TwitchBot.Domain.Entities.Command", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn);
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("uuid_generate_v4()");
 
                     b.Property<string>("Action")
                         .IsRequired()
@@ -55,8 +59,8 @@ namespace TwitchBot.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uuid");
 
                     b.Property<bool>("IsSpecialCommand")
                         .ValueGeneratedOnAdd()
@@ -90,11 +94,80 @@ namespace TwitchBot.Data.Migrations
                     b.ToTable("Commands");
                 });
 
+            modelBuilder.Entity("TwitchBot.Domain.Entities.CommandChannel", b =>
+                {
+                    b.Property<Guid>("ChannelId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CommandId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("uuid_generate_v4()");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("ChannelId", "CommandId");
+
+                    b.HasIndex("CommandId");
+
+                    b.ToTable("CommandChannel");
+                });
+
+            modelBuilder.Entity("TwitchBot.Domain.Entities.TwitchBadge", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("uuid_generate_v4()");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Flag")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TwitchBadges");
+                });
+
             modelBuilder.Entity("TwitchBot.Domain.Entities.Command", b =>
                 {
                     b.HasOne("TwitchBot.Domain.Entities.Channel", "CreatedBy")
-                        .WithMany("Commands")
+                        .WithMany("CreatedCommands")
                         .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TwitchBot.Domain.Entities.CommandChannel", b =>
+                {
+                    b.HasOne("TwitchBot.Domain.Entities.Channel", "Channel")
+                        .WithMany("CommandsInChannel")
+                        .HasForeignKey("ChannelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TwitchBot.Domain.Entities.Command", "Command")
+                        .WithMany("CommandsInChannel")
+                        .HasForeignKey("CommandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using TwitchBot.Domain.Entities;
 using TwitchBot.Services.Interfaces;
 using TwitchBot.Services.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace TwitchBot.Application.MessageHandler
 {
@@ -23,6 +24,7 @@ namespace TwitchBot.Application.MessageHandler
         private readonly TimeSpan RespondToAtSpan = new TimeSpan(0, 0, 15);
         private readonly List<CommandsUsed> LastCommands = new List<CommandsUsed>();
         private readonly ITwitchService TwitchService;
+        private readonly string Username;
 
         public EventHandler<MessageReceivedEventArgs> Handler { get; set; }
 
@@ -43,10 +45,13 @@ namespace TwitchBot.Application.MessageHandler
 
         public MessageHandler(
             ICommandService commandService,
-            ITwitchService service)
+            ITwitchService service,
+            IConfiguration configuration)
         {
             this.commandService = commandService;
             this.TwitchService = service;
+
+            Username = configuration.GetSection("Credentials").GetSection("Username").Value;
 
             Handler += PongMessageReceivedHandler;
             Handler += AtBotMessageReceivedHandler;
@@ -80,7 +85,7 @@ namespace TwitchBot.Application.MessageHandler
             if (DateTime.Now.ToUniversalTime() > LastAtMe.Add(RespondToAtSpan))
             {
                 if (e.IsUserMessage
-                    && e?.UsrMessage.Message.Contains(Credentials.Username, StringComparison.OrdinalIgnoreCase) == true)
+                    && e?.UsrMessage.Message.Contains(Username, StringComparison.OrdinalIgnoreCase) == true)
                 {
                     Task.Run(async () =>
                     {
@@ -107,7 +112,7 @@ namespace TwitchBot.Application.MessageHandler
                 {
                     IEnumerable<Command> command = new List<Command>();
                     Task.Run(async () => {
-                        command = await this.commandService.GetWhere(comm =>
+                        command = await this.commandService.WhereAsync(comm =>
                                comm.IsSpecialCommand
                             && comm.TypeCommand == msg);
                     }).Wait();

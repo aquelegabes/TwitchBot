@@ -36,7 +36,7 @@ namespace TwitchBot.Application.Services
         /// </summary>
         /// <param name="entity">Valid entity</param>
         /// <returns></returns>
-        public virtual async Task Add(T entity)
+        public virtual async Task AddAsync(T entity)
         {
             try
             {
@@ -51,47 +51,56 @@ namespace TwitchBot.Application.Services
         /// <exception cref="ArgumentNullException">Source is null.</exception>
         /// <exception cref="OverflowException">The number of elements in source is larger than <see cref="Int32.MaxValue" />.</exception>
         /// <returns><see cref="Int32" /> The number of elements in the input sequence.</returns>
-        public virtual async Task<int> Count()
+        public virtual async Task<int> CountAsync()
         {
             try
             {
-                return await this.repository.Count();
+                return await this.repository.CountAsync();
             } catch { throw; }
         }
 
-        public virtual async Task<T> GetById(int id)
+        public virtual async Task<int> CountAsync(Expression<Func<T,bool>> @where)
         {
             try
             {
-                //var guid = Guid.Parse(id);
-                return await this.repository.GetById(id);
+                return await this.repository.CountAsync(where);
             }
             catch { throw; }
         }
 
-        public virtual async Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> where)
+        public virtual async Task<T> FindAsync(string id)
         {
             try
             {
-                return await this.repository.Where(where);
-            } catch { throw; }
-        }
-
-        public virtual async Task<T> GetFirst(Expression<Func<T,bool>> where)
-        {
-            try
-            {
-                return await this.repository.FirstOrDefault(where);
+                var guid = Guid.Parse(id);
+                return await this.repository.FindAsync(guid);
             }
             catch { throw; }
         }
 
-        public Task Remove(string Id)
+        public virtual async Task<IEnumerable<T>> WhereAsync(Expression<Func<T, bool>> where)
+        {
+            try
+            {
+                return await this.repository.WhereAsync(where);
+            } catch { throw; }
+        }
+
+        public virtual async Task<T> FirstAsync(Expression<Func<T,bool>> where)
+        {
+            try
+            {
+                return await this.repository.FirstAsync(where);
+            }
+            catch { throw; }
+        }
+
+        public Task RemoveAsync(string Id)
         {
             throw new NotImplementedException();
         }
 
-        public Task Update(T entity)
+        public Task UpdateAsync(T entity)
         {
             throw new NotImplementedException();
         }

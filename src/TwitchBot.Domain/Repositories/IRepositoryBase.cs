@@ -19,13 +19,13 @@ namespace TwitchBot.Domain.Repositories
         /// <param name="id"><see cref="Guid"></see></param>
         /// <exception cref="ArgumentException"></exception>
         /// <returns>Returns a <see cref="T"/></returns>
-        Task<T> GetById(int id);
+        Task<T> FindAsync(Guid id);
 
         /// <summary>
         /// Get all entities
         /// </summary>
         /// <returns>Returns a <see cref="IEnumerable{T}"/></returns>
-        Task<IEnumerable<T>> GetAll();
+        Task<IEnumerable<T>> AllAsync();
 
         /// <summary>
         /// Returns the first entity that satisfies the condition or default value if no such is found.
@@ -35,7 +35,7 @@ namespace TwitchBot.Domain.Repositories
         /// <exception cref="DbException"></exception>
         /// <exception cref="Exception"></exception>
         /// <returns>Returns a <see cref="T"/></returns>
-        Task<T> FirstOrDefault(Expression<Func<T, bool>> @where);
+        Task<T> FirstAsync(Expression<Func<T, bool>> @where);
 
         /// <summary>
         /// Filters a sequence of values based on a predicate
@@ -45,7 +45,7 @@ namespace TwitchBot.Domain.Repositories
         /// <exception cref="DbException"></exception>
         /// <exception cref="Exception"></exception>
         /// <returns>Returns a <see cref="IEnumerable{T}"/></returns>
-        Task<IEnumerable<T>> Where(Expression<Func<T, bool>> @where);
+        Task<IEnumerable<T>> WhereAsync(Expression<Func<T, bool>> @where);
 
         /// <summary>
         /// Returns the number of elements in a sequence that satisfy a condition.
@@ -54,7 +54,7 @@ namespace TwitchBot.Domain.Repositories
         /// <exception cref="ArgumentNullException">Source is null.</exception>
         /// <exception cref="OverflowException">The number of elements in source is larger than <see cref="Int32.MaxValue" />.</exception>
         /// <returns><see cref="Int32" /> The number of elements in the input sequence.</returns>
-        Task<int> Count(Expression<Func<T, bool>> @where);
+        Task<int> CountAsync(Expression<Func<T, bool>> @where);
 
         /// <summary>
         /// Returns the number of elements in collection.
@@ -62,7 +62,7 @@ namespace TwitchBot.Domain.Repositories
         /// <exception cref="ArgumentNullException">Source is null.</exception>
         /// <exception cref="OverflowException">The number of elements in source is larger than <see cref="Int32.MaxValue" />.</exception>
         /// <returns><see cref="Int32" /> The number of elements in the input sequence.</returns>
-        Task<int> Count();
+        Task<int> CountAsync();
 
         /// <summary>
         /// Add the entity
@@ -83,7 +83,7 @@ namespace TwitchBot.Domain.Repositories
         /// <exception cref="DbUpdateException"></exception>
         /// <exception cref="DbException"></exception>
         /// <exception cref="Exception"></exception>
-        Task Update(T model);
+        Task UpdateAsync(T model);
 
         /// <summary>
         /// Remove the entity

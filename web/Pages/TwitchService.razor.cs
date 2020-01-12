@@ -11,6 +11,7 @@ using TwitchBot.Application.Interfaces;
 using TwitchBot.Domain.Entities;
 using TwitchBot.Services;
 using System.Diagnostics;
+using Microsoft.Extensions.Configuration;
 
 namespace TwitchBot.WebApp.Pages
 {
@@ -28,8 +29,17 @@ namespace TwitchBot.WebApp.Pages
         protected IChannelService ChannelService { get; set; }
         [Inject]
         protected ICommandService CommandService { get; set; }
+        [Inject] 
+        protected IConfiguration Configuration { get; set; }
+        protected string BotName
+        {
+            get
+            {
+                return Configuration.GetSection("Credentials").GetSection("Username").Value;
+            }
+        }
         protected IList<IDictionary<string, string>> Messages { get; set; } = new List<IDictionary<string, string>>();
-        protected int MaxMessages { get; set; }
+        protected int MaxMessages { get; set; } = 10;
         protected ICollection<int> MaxChatMessages = new int[]
         {
             10, 50, 100
@@ -78,10 +88,10 @@ namespace TwitchBot.WebApp.Pages
                 Channel chann;
                 chann = new Channel
                 {
-                    Name = Credentials.Username,
+                    Name = BotName,
                     CreatedAt = DateTime.UtcNow
                 };
-                await ChannelService.Add(chann);
+                await ChannelService.AddAsync(chann);
             }
         }
 
@@ -90,9 +100,9 @@ namespace TwitchBot.WebApp.Pages
             if (doit)
             {
                 Channel chann;
-                chann = await ChannelService.GetFirst(c => c.Name == Credentials.Username);
+                chann = await ChannelService.FirstAsync(c => c.Name == BotName);
 
-                if (await CommandService.Count() < 4)
+                if (await CommandService.CountAsync() < 4)
                 {
                     var comm1 = new Command
                     {
@@ -106,7 +116,7 @@ namespace TwitchBot.WebApp.Pages
                         Operators = TwitchBadges.LocalBadges.Moderator | TwitchBadges.LocalBadges.Broadcaster,
                     };
 
-                    await CommandService.Add(comm1);
+                    await CommandService.AddAsync(comm1);
 
                     var comm2 = new Command
                     {
@@ -120,7 +130,7 @@ namespace TwitchBot.WebApp.Pages
                         Operators = TwitchBadges.LocalBadges.Moderator | TwitchBadges.LocalBadges.Broadcaster,
                     };
 
-                    await CommandService.Add(comm2);
+                    await CommandService.AddAsync(comm2);
 
                     var comm3 = new Command
                     {
@@ -134,7 +144,7 @@ namespace TwitchBot.WebApp.Pages
                         Operators = TwitchBadges.LocalBadges.Moderator | TwitchBadges.LocalBadges.Broadcaster,
                     };
 
-                    await CommandService.Add(comm3);
+                    await CommandService.AddAsync(comm3);
 
                     var comm4 = new Command
                     {
@@ -148,7 +158,7 @@ namespace TwitchBot.WebApp.Pages
                         Operators = TwitchBadges.LocalBadges.Moderator | TwitchBadges.LocalBadges.Broadcaster,
                     };
 
-                    await CommandService.Add(comm4);
+                    await CommandService.AddAsync(comm4);
                 }
             }
         }

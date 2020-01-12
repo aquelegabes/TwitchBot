@@ -7,7 +7,7 @@ namespace TwitchBot.Services.Interfaces
     /// <summary>
     /// Inteface responsible for handling <see cref="TwitchService"/> functionalities.
     /// </summary>
-    public interface ITwitchService
+    public interface ITwitchService : IDisposable
     {
         /// <summary>
         /// Event that handles how messages are received.

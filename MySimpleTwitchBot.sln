@@ -9,21 +9,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{601B0C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{E46FEB85-5C6F-4514-BA1C-5E4C736BA155}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.Application", ".\src\TwitchBot.Application\TwitchBot.Application.csproj", "{8376660E-DC9F-49D2-B120-7145AE34A7D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.Application", "src\TwitchBot.Application\TwitchBot.Application.csproj", "{8376660E-DC9F-49D2-B120-7145AE34A7D5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.Domain", ".\src\TwitchBot.Domain\TwitchBot.Domain.csproj", "{EA9C6998-AEAC-4764-8AF8-2CCB3CBB5D01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.Domain", "src\TwitchBot.Domain\TwitchBot.Domain.csproj", "{EA9C6998-AEAC-4764-8AF8-2CCB3CBB5D01}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{94076F01-6DC8-4D2E-B354-56A7F3574CFA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.Services", ".\src\TwitchBot.Services\TwitchBot.Services.csproj", "{6111067C-7BEA-4E9F-AE5D-A4572D886CBA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.ConsoleApp", ".\src\TwitchBot.Console\TwitchBot.ConsoleApp.csproj", "{7C591B9E-8203-4B45-82DD-93A04E9D5A3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.Services", "src\TwitchBot.Services\TwitchBot.Services.csproj", "{6111067C-7BEA-4E9F-AE5D-A4572D886CBA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{2DBD77D7-8391-4B31-B329-529AD13E99B8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.Data", ".\src\TwitchBot.Data\TwitchBot.Data.csproj", "{64E36C85-73A0-4579-BE40-2B493ABE8CFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.Data", "src\TwitchBot.Data\TwitchBot.Data.csproj", "{64E36C85-73A0-4579-BE40-2B493ABE8CFC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.WebApp", ".\web\TwitchBot.WebApp.csproj", "{BF7A03F4-C2DD-4CC4-A5F9-5118FF7CD354}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchBot.WebApp", "web\TwitchBot.WebApp.csproj", "{BF7A03F4-C2DD-4CC4-A5F9-5118FF7CD354}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitchChat.WorkerService", "TwitchChat.WorkerService\TwitchChat.WorkerService.csproj", "{9F79EB59-9DBA-4D70-B45F-9B6C79EF008E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +43,6 @@ Global
 		{6111067C-7BEA-4E9F-AE5D-A4572D886CBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6111067C-7BEA-4E9F-AE5D-A4572D886CBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6111067C-7BEA-4E9F-AE5D-A4572D886CBA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7C591B9E-8203-4B45-82DD-93A04E9D5A3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C591B9E-8203-4B45-82DD-93A04E9D5A3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C591B9E-8203-4B45-82DD-93A04E9D5A3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C591B9E-8203-4B45-82DD-93A04E9D5A3F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{64E36C85-73A0-4579-BE40-2B493ABE8CFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{64E36C85-73A0-4579-BE40-2B493ABE8CFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64E36C85-73A0-4579-BE40-2B493ABE8CFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,6 +51,10 @@ Global
 		{BF7A03F4-C2DD-4CC4-A5F9-5118FF7CD354}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF7A03F4-C2DD-4CC4-A5F9-5118FF7CD354}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF7A03F4-C2DD-4CC4-A5F9-5118FF7CD354}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F79EB59-9DBA-4D70-B45F-9B6C79EF008E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F79EB59-9DBA-4D70-B45F-9B6C79EF008E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F79EB59-9DBA-4D70-B45F-9B6C79EF008E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F79EB59-9DBA-4D70-B45F-9B6C79EF008E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,9 +63,9 @@ Global
 		{8376660E-DC9F-49D2-B120-7145AE34A7D5} = {71B4642C-006E-4C1E-B8ED-7F0EF21D11F1}
 		{EA9C6998-AEAC-4764-8AF8-2CCB3CBB5D01} = {601B0CA4-E7D9-4D7E-A927-6293188C6A9E}
 		{6111067C-7BEA-4E9F-AE5D-A4572D886CBA} = {94076F01-6DC8-4D2E-B354-56A7F3574CFA}
-		{7C591B9E-8203-4B45-82DD-93A04E9D5A3F} = {E46FEB85-5C6F-4514-BA1C-5E4C736BA155}
 		{64E36C85-73A0-4579-BE40-2B493ABE8CFC} = {2DBD77D7-8391-4B31-B329-529AD13E99B8}
 		{BF7A03F4-C2DD-4CC4-A5F9-5118FF7CD354} = {E46FEB85-5C6F-4514-BA1C-5E4C736BA155}
+		{9F79EB59-9DBA-4D70-B45F-9B6C79EF008E} = {E46FEB85-5C6F-4514-BA1C-5E4C736BA155}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05B18F5F-49D9-4770-B508-4BEA4E7A716A}

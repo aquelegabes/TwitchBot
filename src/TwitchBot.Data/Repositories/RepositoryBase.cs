@@ -37,7 +37,7 @@ namespace TwitchBot.Data.Repositories
         /// Get all entities
         /// </summary>
         /// <returns>Returns a <see cref="IEnumerable{T}"/></returns>
-        public virtual async Task<IEnumerable<T>> GetAll() => await _context.Set<T>().ToListAsync();
+        public virtual async Task<IEnumerable<T>> AllAsync() => await _context.Set<T>().ToListAsync();
 
         /// <summary>
         /// Returns the first entity that satisfies the condition or default value if no such is found.
@@ -47,7 +47,7 @@ namespace TwitchBot.Data.Repositories
         /// <exception cref="DbException"></exception>
         /// <exception cref="Exception"></exception>
         /// <returns>Returns a <see cref="T"/></returns>
-        public virtual async Task<T> FirstOrDefault(Expression<Func<T, bool>> where)
+        public virtual async Task<T> FirstAsync(Expression<Func<T, bool>> where)
         {
             if (where == null)
                 throw new ArgumentNullException(nameof(where), "Predicate cannot be null.");
@@ -80,7 +80,7 @@ namespace TwitchBot.Data.Repositories
         /// <exception cref="DbException"></exception>
         /// <exception cref="Exception"></exception>
         /// <returns>Returns a <see cref="IEnumerable{T}"/></returns>
-        public virtual async Task<IEnumerable<T>> Where(Expression<Func<T, bool>> where)
+        public virtual async Task<IEnumerable<T>> WhereAsync(Expression<Func<T, bool>> where)
         {
             if (where == null)
                 throw new ArgumentNullException(nameof(where), "Predicate cannot be null.");
@@ -113,7 +113,7 @@ namespace TwitchBot.Data.Repositories
         /// <exception cref="ArgumentNullException">Source is null.</exception>
         /// <exception cref="OverflowException">The number of elements in source is larger than <see cref="Int32.MaxValue" />.</exception>
         /// <returns><see cref="Int32" /> The number of elements in the input sequence.</returns>
-        public async Task<int> Count(Expression<Func<T, bool>> where)
+        public async Task<int> CountAsync(Expression<Func<T, bool>> where)
         {
             if (where == null)
                 throw new ArgumentNullException(
@@ -142,7 +142,7 @@ namespace TwitchBot.Data.Repositories
         /// <exception cref="ArgumentNullException">Source is null.</exception>
         /// <exception cref="OverflowException">The number of elements in source is larger than <see cref="Int32.MaxValue" />.</exception>
         /// <returns><see cref="Int32" /> The number of elements in the input sequence.</returns>
-        public async Task<int> Count()
+        public async Task<int> CountAsync()
         {
             try
             {
@@ -165,9 +165,9 @@ namespace TwitchBot.Data.Repositories
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="Exception" />
         /// <returns>Returns a <see cref="T"/></returns>
-        public virtual async Task<T> GetById(int id)
+        public virtual async Task<T> FindAsync(Guid id)
         {
-            if (id <= 0)
+            if (id == null)
                 throw new ArgumentException("Id cannot be null", nameof(id));
 
             try
@@ -221,7 +221,7 @@ namespace TwitchBot.Data.Repositories
         /// <exception cref="DbException"></exception>
         /// <exception cref="Exception"></exception>
         /// <returns>Returns the updated <see cref="T"/> entity.</returns>
-        public virtual async Task Update(T model)
+        public virtual async Task UpdateAsync(T model)
         {
             if (model == null)
                 throw new ArgumentNullException(

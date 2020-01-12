@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TwitchBot.Services.Models;
 using TwitchBot.Services.Interfaces;
 using System.Diagnostics;
+using Microsoft.Extensions.Configuration;
 
 namespace TwitchBot.Services
 {
@@ -34,9 +35,6 @@ namespace TwitchBot.Services
         /// </summary>
         public const int TWITCH_PORT = 6667;
 
-        private string Username => Credentials.Username;
-        private string Password => Credentials.Password;
-
         /// <summary>
         /// Collection to all threads connected to channels.
         /// </summary>
@@ -45,14 +43,18 @@ namespace TwitchBot.Services
         internal TcpClient TCPClient { get; private set; }
         internal StreamReader Reader { get; private set; }
         internal StreamWriter Writer { get; private set; }
+        private string Username { get; }
 
         /// <summary>
         /// Constructor to initialize threads.
         /// </summary>
-        public TwitchService()
+        public TwitchService(IConfiguration configuration)
         {
             Threads = new List<ServiceThread>();
-
+            
+            Username = configuration.GetSection("Credentials:Username").Value;
+            string Password = configuration.GetSection("Credentials:Password").Value;
+            
             // initializing client
             this.TCPClient = new TcpClient(TWITCH_HOST, TWITCH_PORT);
             this.Reader = new StreamReader(TCPClient.GetStream());
@@ -211,6 +213,16 @@ namespace TwitchBot.Services
         public bool IsConnectedToChannel(string channel)
         {
             return Threads?.Any(t => t.Channel.Equals(channel, StringComparison.OrdinalIgnoreCase)) ?? false;
+        }
+
+        public void Dispose()
+        {
+            TCPClient.Close();
+            TCPClient.Dispose();
+            Writer.Close();
+            Writer.Dispose();
+            Reader.Close();
+            Reader.Dispose();
         }
     }
 }

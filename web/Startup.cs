@@ -19,6 +19,7 @@ using TwitchBot.Domain.Repositories;
 using TwitchBot.Services;
 using TwitchBot.Services.Interfaces;
 using TwitchBot.WebApp.Data;
+using TwitchBot.WebApp.Hubs;
 
 namespace TwitchBot.WebApp
 {
@@ -76,6 +77,7 @@ namespace TwitchBot.WebApp
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<TwitchServiceHub>("/twitchhub");
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });

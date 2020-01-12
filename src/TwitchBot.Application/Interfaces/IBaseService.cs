@@ -20,7 +20,7 @@ namespace TwitchBot.Application.Interfaces
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="Exception" />
         /// <returns>Returns a <see cref="T"/></returns>
-        Task<T> GetById(int id);
+        Task<T> FindAsync(string id);
 
         /// <summary>
         /// Returns the number of elements in a sequence.
@@ -28,7 +28,7 @@ namespace TwitchBot.Application.Interfaces
         /// <exception cref="ArgumentNullException">Source is null.</exception>
         /// <exception cref="OverflowException">The number of elements in source is larger than <see cref="Int32.MaxValue" />.</exception>
         /// <returns><see cref="Int32" /> The number of elements in the input sequence.</returns>
-        Task<int> Count();
+        Task<int> CountAsync();
 
         /// <summary>
         /// Retrieve all entities within the expression.
@@ -36,7 +36,15 @@ namespace TwitchBot.Application.Interfaces
         /// <param name="@where">A valid expression.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Null expression.</exception>
-        Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> @where);
+        Task<int> CountAsync(Expression<Func<T, bool>> @where);
+
+        /// <summary>
+        /// Retrieve all entities within the expression.
+        /// </summary>
+        /// <param name="@where">A valid expression.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">Null expression.</exception>
+        Task<IEnumerable<T>> WhereAsync(Expression<Func<T, bool>> @where);
 
         /// <summary>
         /// Retrieve first entity that matches the expression.
@@ -44,14 +52,14 @@ namespace TwitchBot.Application.Interfaces
         /// <param name="@where">A valid expression.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Null expression.</exception>
-        Task<T> GetFirst(Expression<Func<T, bool>> where);
+        Task<T> FirstAsync(Expression<Func<T, bool>> where);
 
         /// <summary>
         /// Add an entity to the database.
         /// </summary>
         /// <param name="entity">Valid entity</param>
         /// <returns></returns>
-        Task Add(T entity);
+        Task AddAsync(T entity);
 
         /// <summary>
         /// Remove an entity.
@@ -59,7 +67,7 @@ namespace TwitchBot.Application.Interfaces
         /// <param name="id">A valid entity id.</param>
         /// <returns></returns>
         /// <exception cref="FormatException"></exception>
-        Task Remove(string Id);
+        Task RemoveAsync(string Id);
 
         /// <summary>
         /// Update an existing entity.
@@ -68,6 +76,6 @@ namespace TwitchBot.Application.Interfaces
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Null entity.</exception>
         /// <exception cref="KeyNotFound">Entity not found.</exception>
-        Task Update(T entity);
+        Task UpdateAsync(T entity);
     }
 }

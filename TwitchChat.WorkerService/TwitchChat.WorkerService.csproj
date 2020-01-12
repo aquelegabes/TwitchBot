@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UserSecretsId>dotnet-TwitchChat.WorkerService-0A55442A-1028-43B8-92B4-F7CDD0C98BAD</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\TwitchBot.Application\TwitchBot.Application.csproj" />
+    <ProjectReference Include="..\src\TwitchBot.Data\TwitchBot.Data.csproj" />
+    <ProjectReference Include="..\src\TwitchBot.Services\TwitchBot.Services.csproj" />
+  </ItemGroup>
+</Project>

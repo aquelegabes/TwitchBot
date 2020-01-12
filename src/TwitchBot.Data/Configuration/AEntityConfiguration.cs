@@ -18,7 +18,10 @@ namespace TwitchBot.Data.Configuration
             builder.Property(p => p.Id)
                 .HasDefaultValueSql("uuid_generate_v4()");
 
-            builder.Property(p => p.CreatedAt).IsRequired();
+            builder.Property(p => p.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW()");
+
             builder.Property(p => p.UpdatedAt);
         }
     }
